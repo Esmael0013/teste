@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <title>EsmaelTech - Jogo de Cliques</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
     <style>
+        html {
+            touch-action: manipulation; /* Previne zoom e gestos indesejados */
+        }
+
         body {
             font-family: 'Poppins', Arial, sans-serif;
             background: linear-gradient(135deg, #0d1b2a, #1b263b);
@@ -83,16 +86,28 @@
             text-align: left;
         }
 
-        /* Animação de bounce */
         @keyframes bounce {
             0% { transform: translateY(0); }
             100% { transform: translateY(-10px); }
+        }
+
+        /* Estilos para dispositivos móveis */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            #clickEmoji {
+                font-size: 5rem;
+            }
+            .counter {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
     <h1>🎉 Jogo de Cliques - EsmaelTech 🎉</h1>
-    <div id="clickEmoji" onclick="handleClick()">💎</div>
+    <div id="clickEmoji" onclick="handleClick()">&#128142;</div> <!-- 💎 -->
 
     <div class="counter">Cliques: <span id="clickCount">0</span></div>
     <div class="reward hidden" id="rewardMessage">Recompensa desbloqueada!</div>
@@ -111,9 +126,8 @@
         </ul>
     </div>
 
-    <!-- Botão de Voltar para a Página Principal -->
     <div>
-        <button class="back-button" onclick="window.location.href='index.html'">Voltar para a Página Principal</button>
+        <button class="back-button" onclick="window.location.href='./index.html'">Voltar para a Página Principal</button>
     </div>
 
     <script>
@@ -124,17 +138,14 @@
             document.getElementById('clickCount').textContent = clickCount;
             checkReward(clickCount);
 
-            // Animação de clique
             const clickEmoji = document.getElementById('clickEmoji');
             clickEmoji.classList.remove('bounceClick');
-            void clickEmoji.offsetWidth;  // Reinicia a animação
+            void clickEmoji.offsetWidth;
             clickEmoji.classList.add('bounceClick');
         }
 
         function checkReward(count) {
             const rewardMessage = document.getElementById('rewardMessage');
-            const achievements = document.getElementById('achievements');
-            
             if (count === 10) {
                 rewardMessage.textContent = "Parabéns! Você alcançou 10 cliques! 🎉";
                 rewardMessage.classList.remove('hidden');
@@ -169,12 +180,11 @@
         }
 
         function redirect() {
-            window.location.href = 'pagina.html';  // Substitua 'pagina.html' pelo URL da próxima página
+            window.location.href = './pagina.html';
         }
 
-        // Animação CSS para clique
-        const styleSheet = document.createElement("style")
-        styleSheet.type = "text/css"
+        const styleSheet = document.createElement("style");
+        styleSheet.type = "text/css";
         styleSheet.innerText = `
             @keyframes bounceClick {
                 0% { transform: scale(1); }
